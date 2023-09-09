@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 from PIL import Image
-df=pd.read_csv('BirthWt.csv')
+df=pd.read_csv('C:/Users/Varun Kumar/Downloads/BirthWt.csv')
 def home():
     st.title("Welcome to Birth Weight data presentation")
     image = Image.open('image.png')
