@@ -10,7 +10,7 @@ def home():
 def Data_Header():
     st.write(df.head())
 def Pinfo():
-    tab1, tab2, tab3 = st.tabs(['Birth weight', "Mother's age", 'Sex'])
+    tab1, tab2 = st.tabs(['Birth weight', "Mother's age"])
     with tab1:
         sex_level = st.multiselect("Select the sex:",
                                                options=df["sex"].unique(),
@@ -52,22 +52,6 @@ def Pinfo():
         st.write("3. Most of the newborn's birth weight is in the range of 2500 to 3900.")
         st.write("4. From this graphs we could see that birth weight between 2500 to 4000 the mother's age is below 25 and the gender of the newborns are female.")
         st.write("5. More birth weight spread in the range 2500 to 3700.")
-
-    with tab3:
-        sex_level = st.multiselect("Select the sex:",
-                                   options=df["sex"].unique(),
-                                   default=df["sex"].unique(), key='k3')
-        df_selection = df.query(
-            "sex == @sex_level"
-        )
-        fig3 = px.box(df_selection, y='bweight', x='sex', title='Birth weight based on the sex',
-                      labels={'bweight': 'Birth weight', 'sex': 'Sex'})
-        st.plotly_chart(fig3)
-        t3 = df_selection.groupby(['sex'])['bweight'].aggregate(['sum', 'mean', 'median', 'max', 'min'])
-        st.dataframe(t3)
-        st.write("1. After comparing both the box plot, we can conclude that male newborn birth weight is relatively greater than female newborn.")
-        st.write("2. By comparing extreme points for birth weight with respect to gender, birth weight for female newborn is less than male newborn.")
-        st.write("3. More spread in birth weight when the gender is male by comparing female.")
 def Minfo():
     options = st.selectbox('select the variable', ["Hypertension","Gestational week","Menstrual gap","Gestational period"])
     if options=='Hypertension':
@@ -90,9 +74,8 @@ def report():
     st.write('2. When the gestational week increases the birth weight of the newborns also increase respectively.')
     st.write('3. Menstrual gap does not affect the birth weight.')
     st.write('4. When the gestational period is 2 the newborns birth weight is more consistent.')
-    st.write('5. Birth weight of the newborns also depends on it is sex.')
-    st.write('6. Average number of healthly newborn weight is in the range between 2500 to 4000 based on the graph.')
-    st.write('7. Factor that affect birth weight are hypertension, sex, gestational week and gestational period.')
+    st.write('5. Average number of healthly newborn weight is in the range between 2500 to 4000 based on the graph.')
+    st.write('6. Factor that affect birth weight are hypertension, sex, gestational week and gestational period.')
 def ht():
     st.header('Hypertension')
     ht_level = st.multiselect("Select the Hyertension(Yes/No):",
