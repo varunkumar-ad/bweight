@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 from PIL import Image
-df=pd.read_csv('BirthWt.csv')
+df=pd.read_csv('C:/Users/Varun Kumar/Downloads/BirthWt.csv')
 def home():
     st.title("Welcome to Birth Weight data presentation")
     image = Image.open('image.png')
@@ -18,11 +18,11 @@ def Pinfo():
         df_selection = df.query(
             "sex == @sex_level"
         )
-        fig1 = px.histogram(df_selection, x='bweight', color='sex', title='Birth Weight of the newborn based on gender')
+        fig1 = px.histogram(df_selection, x='bweight', color='sex', title='Birth Weight of the newborn based on gender',labels={'bweight':'Birth weight'})
         st.plotly_chart(fig1)
         t1 = df_selection.groupby(['sex'])['bweight'].aggregate(['sum', 'mean', 'median', 'max', 'min'])
         st.dataframe(t1)
-        st.write("1. Majority of birth weight lies between 2300 and 3900, but birth weight more than 4600 could found in less proportion.")
+        st.write("1. Majority of birth weight lies between 2300 and 3900, but birth weight more than 4600 could be found in less proportion.")
         st.write("2. Almost constant birth weight spread from 0 to 2100")
         st.write("3. This graph shows many number of male newborns with birth weights are more compared to female newborns")
 
@@ -53,7 +53,7 @@ def Pinfo():
         st.write("4. From this graphs we could see that birth weight between 2500 to 4000 the mother's age is below 25 and the gender of the newborns are female.")
         st.write("5. More birth weight spread in the range 2500 to 3700.")
 def Minfo():
-    options = st.selectbox('select the variable', ["Hypertension","Gestational week","Menstrual gap","Gestational period"])
+    options = st.selectbox('select the variable', ["Hypertension","Gestational week","Menstrual gap","Gestational age categories"])
     if options=='Hypertension':
         ht()
     elif options =='Gestational week':
@@ -63,7 +63,7 @@ def Minfo():
         st.write("3. It is a postive slope line, from this we can say when birthweight depends on Gestational week")
     elif options =='Menstrual gap':
         matagegp()
-    elif options =='Gestational period':
+    elif options =='Gestational age categories':
         gestcat()
 st.sidebar.title("Direction")
 side=st.sidebar.radio('Select what you want to see:', ['Home', 'Data Header', 'Personal Info','Medical Info', 'Report'])
@@ -73,9 +73,9 @@ def report():
     st.write('1. Birth weight of newborns are more consistent when the mother has no hypertension.')
     st.write('2. When the gestational week increases the birth weight of the newborns also increase respectively.')
     st.write('3. Menstrual gap does not affect the birth weight.')
-    st.write('4. When the gestational period is 2 the newborns birth weight is more consistent.')
+    st.write('4. When the gestational age category 2, newborns birth weight is more consistent.')
     st.write('5. Average number of healthly newborn weight is in the range between 2500 to 4000 based on the graph.')
-    st.write('6. Factor that affect birth weight are hypertension, sex, gestational week and gestational period.')
+    st.write('6. Factor that affect birth weight are hypertension, sex, gestational week and gestational age categories.')
 def ht():
     st.header('Hypertension')
     ht_level = st.multiselect("Select the Hyertension(Yes/No):",
@@ -108,20 +108,20 @@ def matagegp():
     st.dataframe(t5)
     st.write("1. From this graph Menstrual gap does not affect the birth weight of the newborns.")
 def gestcat():
-    st.header('Gestational period')
-    gestcat_level = st.multiselect("Select the Gestational period:",
+    st.header('Gestational age category')
+    gestcat_level = st.multiselect("Select the gestational age category:",
                                     options=df["gestcat"].unique(),
                                     default=df["gestcat"].unique(), key='k5')
     df_selection = df.query(
         "gestcat == @gestcat_level"
     )
-    fig = px.box(df_selection, x='gestcat', y='bweight', labels={'gestcat':'Gestational period','bweight':'Birth weight'})
+    fig = px.box(df_selection, x='gestcat', y='bweight', labels={'gestcat':'Gestational age category','bweight':'Birth weight'})
     st.plotly_chart(fig)
     t6 = df_selection.groupby(['gestcat'])['bweight'].aggregate(['sum', 'mean', 'median', 'max', 'min'])
     st.dataframe(t6)
-    st.write("1. From this graph we can see that birth weight is more consistent when the gestational period is 2 compare to gestational period as 1.")
-    st.write("2. Birth weight is maximum when the gestational period is 2.")
-    st.write("3. Birth weight is minimum when  the gestational period is 1.")
+    st.write("1. From this graph we can see that birth weight is more consistent when the gestational age category is 2 compare to gestational age category as 1.")
+    st.write("2. Birth weight is maximum when the gestational age category is 2.")
+    st.write("3. Birth weight is minimum when  the gestational age category is 1.")
 
 if side == 'Home':
     home()
@@ -129,9 +129,9 @@ if side == 'Home':
 elif side == 'Data Header':
     st.title("Birth weight dataset")
     Data_Header()
-    st.write("Attributes \n1) Matage - Mother's age \n2) Ht - Hypertension, whether the mother is hypertension patient or not. \n3) Gestwks - Gestational age is the common term used during pregnancy to describe how far along the pregnancy is. It is measured in weeks. \n4) Bweight - Birth weight is the first weight of your baby, taken just after being born. It is measured in grams (g). \n5) Matagegp - Mother's gap between the first baby and next baby (in years).  \n6) Gestcat - The gestational period, in a medical context, refers to the duration of time that a pregnancy lasts, typically measured from the first day of the last menstrual period to the birth of the baby.")
-    st.write('Dataset dimension')
+    st.write('Dimensions of the dataset')
     df.shape
+    st.write("Attributes \n1) Matage - Mother's age \n2) Ht - Hypertension, whether the mother is hypertension patient or not. \n3) Gestwks - Gestational age is the common term used during pregnancy to describe how far along the pregnancy is. It is measured in weeks. \n4) Bweight - Birth weight is the first weight of the newborn baby, taken just after being born. It is measured in grams (g). \n5) Matagegp - Mother's gap between the first baby and next baby (in years).  \n6) Gestcat - Gestational age categories.")
 
 elif side =='Personal Info':
     Pinfo()
