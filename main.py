@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 from PIL import Image
-df=pd.read_csv('BirthWt.csv')
+df=pd.read_csv('C:/Users/Varun Kumar/Downloads/BirthWt.csv')
 def home():
     st.title("Welcome to Birth Weight data presentation")
     image = Image.open('image.png')
@@ -142,11 +142,11 @@ def gestcat():
 
 if side == 'Home':
     home()
-    st.write("1. The Birth Weight dataset is a collection of records documenting the birth weights of newborn infants.")
-    st.write("2. This dataset includes variables like Id, birth weight, gestational age, maternal age, hypertension, sex, maternal gap, and Gestcat")
+    st.write("The Birth Weight dataset is a collection of records documenting the birth weights of newborn infants.This dataset includes variables like Id, birth weight, gestational age, maternal age, hypertension, sex, maternal gap, and Gestcat.")
 elif side == 'Data Header':
     st.title("Birth weight dataset")
     Data_Header()
+    st.write("Attributes \n1) Matage - Mother's age \n2) Ht - Hypertension, whether the mother is hypertension patient or not. \n3) Gestwks - Gestational age is the common term used during pregnancy to describe how far along the pregnancy is. It is measured in weeks. \n4) Bweight - Birth weight is the first weight of your baby, taken just after being born. It is measured in grams (g). \n5) Matagegp - Mother's gap between the first baby and next baby (in years).  \n6) Gestcat - The gestational period, in a medical context, refers to the duration of time that a pregnancy lasts, typically measured from the first day of the last menstrual period to the birth of the baby.")
     st.write('Dataset dimension')
     df.shape
 
