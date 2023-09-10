@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 from PIL import Image
-df=pd.read_csv('BirthWt.csv')
+df=pd.read_csv('C:/Users/Varun Kumar/Downloads/BirthWt.csv')
 def home():
     st.title("Welcome to Birth Weight data presentation")
     image = Image.open('image.png')
@@ -58,7 +58,7 @@ def Minfo():
         st.write("1. From this graph we can see there are some newborns birth weight less than 1000 when the gestational week in the range between 24 to 32.")
         st.write("2. Also from the graph we can see that maximum number of newborns birthweight in the range 2500 to 4000 and when the Gestational week is between 37 and 42.")
         st.write("3. It is a postive slope line, from this we can say when birthweight depends on Gestational week")
-    elif options =='Matagegp ':
+    elif options =='Matagegp':
         matagegp()
     elif options =='Gestational age categories':
         gestcat()
@@ -87,13 +87,13 @@ def ht():
     st.dataframe(t4)
     st.write("1. From the graph person without hypertension have more consistent birth weight compared to person with hypertension graph.")
     st.write("2. Newborn with lowest birth weight is born for person with no hypertension.")
-    st.writr("3. The average birth weight of the person with hypertension is significantly less ")
+    st.write("3. The average birth weight of the person with hypertension is significantly less ")
 def gestwks():
     st.header('Gestational week')
     fig2 = px.scatter(df, x='gestwks', y='bweight', labels={'gestwks':'Gestational week','bweight':'Birth weight'})
     st.plotly_chart(fig2)
 def matagegp():
-    st.header('Matagegp ')
+    st.header('Matagegp')
     matagegp_level = st.multiselect("Select the Matagegp :",
                                    options=df["matagegp"].unique(),
                                    default=df["matagegp"].unique(), key='k5')
