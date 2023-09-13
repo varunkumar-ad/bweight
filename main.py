@@ -11,32 +11,32 @@ def home():
 def Data_Header():
     st.write(df.head())
 def Pinfo():
-    tab1, tab2 = st.tabs(['Birth weight', "Mother's age"])
-    with tab1:
-        bweight_selection = st.slider('Birth weight:',
-                                     min_value=min(df['bweight']),
-                                     max_value=max(df['bweight']),
-                                     value=(min(df['bweight']), max(df['bweight'])))
-        mask = (df['bweight'].between(*bweight_selection))
+    tab1 = st.tabs(['Birth weight'])
+    st.title('Birth weight of the newborn')
+    bweight_selection = st.slider('Birth weight:',
+                                 min_value=min(df['bweight']),
+                                 max_value=max(df['bweight']),
+                                 value=(min(df['bweight']), max(df['bweight'])))
+    mask = (df['bweight'].between(*bweight_selection))
 
-        sex_level = st.multiselect("Select the sex:",
-                                   options=df["sex"].unique(),
-                                   default=df["sex"].unique(), key="k2")
-        df_selection = df.query(
-            "sex == @sex_level"
-        )
-        fig1 = px.histogram(df_selection[mask], x="bweight", title="Birth weight",
-                          labels={'bweight': 'Birth weight'}, color='sex')
-        st.plotly_chart(fig1)
+    sex_level = st.multiselect("Select the sex:",
+                               options=df["sex"].unique(),
+                               default=df["sex"].unique(), key="k2")
+    df_selection = df.query(
+        "sex == @sex_level"
+    )
+    fig1 = px.histogram(df_selection[mask], x="bweight", title="Histogram based on Birth weight and sex",
+                      labels={'bweight': 'Birth weight'}, color='sex')
+    st.plotly_chart(fig1)
 
-        mask = (df['bweight'].between(*bweight_selection)) & (df['sex'].isin(df_selection))
+    mask = (df['bweight'].between(*bweight_selection)) & (df['sex'].isin(df_selection))
 
-        t1 = df_selection.groupby(['sex'])['bweight'].aggregate(['count','sum', 'mean', 'median', 'max', 'min'])
-        st.dataframe(t1)
-        st.write("1. Majority of the newborn's birth weight lies between 2500 and 3700, but birth weight more than 4600 could be found in less proportion.")
-        st.write("2. Almost constant number of newborns from the birth weight spread between 0 to 2100")
-        st.write("3. From the table, first half of the male newborns are below the birth weight of 3290 ")
-        st.write("4. From the table, first half of the female newborns are below the birth weight of 3120 ")
+    t1 = df_selection.groupby(['sex'])['bweight'].aggregate(['count','sum', 'mean', 'median', 'max', 'min'])
+    st.dataframe(t1)
+    st.write("1. Majority of the newborn's birth weight lies between 2500 and 3700, but birth weight more than 4600 could be found in less proportion.")
+    st.write("2. Almost constant number of newborns from the birth weight spread between 0 to 2100")
+    st.write("3. From the table, first half of the male newborns are below the birth weight of 3290 ")
+    st.write("4. From the table, first half of the female newborns are below the birth weight of 3120 ")
 
 def Minfo():
     options = st.selectbox('select the variable', ["Hypertension","Maternal age group","Gestational age categories"])
@@ -122,7 +122,7 @@ elif side == 'Data Header':
     Data_Header()
     st.write('Dimensions of the dataset')
     df.shape
-    st.write("Attributes \n1) Matage - Mother's age at the time of delivery \n2) Ht - Hypertension, whether the mother is hypertension patient or not. \n3) Gestwks - Gestational age is the common term used during pregnancy to describe how far along the pregnancy is. It is measured in weeks. \n4) Bweight - Birth weight is the first weight of the newborn baby, taken just after being born. It is measured in grams (g). \n5) Matagegp - Maternal age group Women were categorised according to maternal age into four groups; maternal age 20–29 years, maternal age 30–34 years, maternal age 35–39 years and maternal age 40 years and older. \n6) Gestcat - Gestational age categories tells us Pre-term: less than 259 days (37 weeks), term: 259–293 days (37–42 weeks)")
+    st.write("Attributes \n1) Matage - Mother's age at the time of delivery \n2) Ht - Hypertension, whether the mother is hypertension patient or not. \n3) Gestwks - Gestational age is the common term used during pregnancy to describe how far along the pregnancy is. It is measured in weeks. \n4) Bweight - Birth weight is the first weight of the newborn baby, taken just after being born. It is measured in grams (g). \n5) Matagegp - Maternal age group, women were categorised according to maternal age into four groups; maternal age 20–29 years, maternal age 30–34 years, maternal age 35–39 years and maternal age 40 years and older. \n6) Gestcat - Gestational age categories tells us Pre-term: less than 259 days (37 weeks), term: 259–293 days (37–42 weeks)")
 
 elif side =="Baby's Info":
     Pinfo()
