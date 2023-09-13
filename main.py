@@ -68,10 +68,16 @@ def ht():
     st.plotly_chart(fig1)
     t4 = df_selection.groupby(['ht'])['bweight'].aggregate(['count','sum', 'mean', 'median', 'max', 'min'])
     st.dataframe(t4)
-    st.write('25% of the hypertension patients below')
-    st.write(df.groupby(['ht'])['bweight'].quantile(0.25))
-    st.write('75% of the hypertension patients below')
-    st.write(df.groupby(['ht'])['bweight'].quantile(0.75))
+    def convert_df(df):
+        return df.to_csv().encode('utf-8')
+
+    csv = convert_df(t4)
+    st.download_button(
+        label="Download",
+        data=csv,
+        file_name='Hypertension.csv',
+        mime='text/csv',)
+
     st.write("1. We can see lowest birthweight and some extreme value is present when the mother is a hypertension patient but when the mother is hypertension patient the lower fence is 980.")
     st.write("2. The boxplot is more consistent for mother with no hypertension compared to mother with hypertension.")
     st.write("3. From the mean we can see there is a huge difference in the birth weight which is relatively greater when the mother is not a hypertension patient.")
@@ -91,7 +97,7 @@ def matagegp():
     st.dataframe(t5)
     st.write("1. All the boxplot median looks relatively same.")
     st.write('2. First three boxplot having almost same 25% birth weight except when the maternal age group is >=40')
-    st.write('We can see lower birth weight is found in all the groups but in maternal age group 30-34 and 35-39 it is more.')
+    st.write('3. We can see lower birth weight is found in all the groups but in maternal age group 30-34 and 35-39 it is more.')
 def gestcat():
     st.header('Gestational age categories')
     gestcat_level = st.multiselect("Select the gestational age categories:",
