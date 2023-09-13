@@ -54,7 +54,9 @@ def report():
     st.write('1. Birth weight of newborns are more consistent when the mother has no hypertension.')
     st.write('2. Maternal age group slightly affect the birth weight.')
     st.write('3. When the gestational age category >=37 weeks, newborns birth weight is more consistent.')
-    st.write('4. Factor that affect birth weight are hypertension, sex, Maternal age group and gestational age categories.')
+    st.write('4. Birth weight decrease when the mother is a hypertension patient and maternal age group increases.')
+    st.write('5. Birth weight increase when the gestational week group increase.')
+    st.write('6. Birth weight of the female newborns is relatively less compared to male newborns')
 def ht():
     st.header('Hypertension')
     ht_level = st.multiselect("Select the Hyertension(Yes/No):",
@@ -122,13 +124,15 @@ df['matagegp']=np.where((df['matagegp']==1),'20–29',
 df['gestcat']=np.where((df['gestcat']==1),'<37', '>=37')
 if side == 'Home':
     home()
-    st.write("Birthweight refers to the weight of a newborn baby at the time of their birth, typically measured in grams. It is a critical indicator of an infant's overall health and development. Low birthweight, often defined as less than 2,500 grams, can be associated with various health risks and complications, while a healthy birthweight is generally considered to be between 2,500 and 4,000 grams. Factor affecting birth weight are gestational age, mother's age, hypertension, sex, Mother's age gap, and Gestational age category.")
+    st.write("Birthweight refers to the weight of a newborn baby at the time of their birth, typically measured in grams. It is a critical indicator of an infant's overall health and development. Low birthweight, often defined as less than 2,500 grams, can be associated with various health risks and complications, while a healthy birthweight is generally considered to be between 2,500 and 4,000 grams.")
+    st.subheader('Questions')
+    st.write('What factors affect the babies weight?')
 elif side == 'Data Header':
     st.title("Birth weight dataset")
     Data_Header()
     st.write('Dimensions of the dataset')
     df.shape
-    st.write("Attributes \n1) Matage - Mother's age at the time of delivery \n2) Ht - Hypertension, whether the mother is hypertension patient or not. \n3) Gestwks - Gestational age is the common term used during pregnancy to describe how far along the pregnancy is. It is measured in weeks. \n4) Bweight - Birth weight is the first weight of the newborn baby, taken just after being born. It is measured in grams (g). \n5) Matagegp - Maternal age group, women were categorised according to maternal age into four groups; maternal age 20–29 years, maternal age 30–34 years, maternal age 35–39 years and maternal age 40 years and older. \n6) Gestcat - Gestational age categories tells us Pre-term: less than 259 days (37 weeks), term: 259–293 days (37–42 weeks)")
+    st.write("Attributes \n1) Matage - Mother's age at the time of delivery \n2) Ht - Hypertension, whether the mother is hypertension patient or not. \n3) Gestwks - Gestational age is the common term used during pregnancy to describe how far along the pregnancy is. It is measured in weeks.\n4) Sex - Gender of the newborn baby whether male/female \n5) Bweight - Birth weight is the first weight of the newborn baby, taken just after being born. It is measured in grams (g). \n6) Matagegp - Maternal age group, women were categorised according to maternal age into four groups; maternal age 20–29 years, maternal age 30–34 years, maternal age 35–39 years and maternal age 40 years and older. \n7) Gestcat - Gestational age categories tells us Pre-term: less than 259 days (37 weeks), term: 259–293 days (37–42 weeks)")
 
 elif side =="Baby's Info":
     Pinfo()
